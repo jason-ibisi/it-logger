@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addLog } from '../../actions/logActions';
 import M from 'materialize-css/dist/js/materialize.min';
 
-const AddLogModal = () => {
+const AddLogModal = ({ addLog }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [technician, setTechnician] = useState('');
@@ -15,7 +18,18 @@ const AddLogModal = () => {
     if (message === '' || technician === '') {
       M.toast({ html: 'Please enter a message and technician' });
     } else {
-      console.log(message, technician, attention);
+      // Create new log object
+      const newLog = {
+        message,
+        attention,
+        technician,
+        date: new Date()
+      };
+
+      // Add Log
+      addLog(newLog);
+
+      M.toast({ html: `Log added by ${technician} ` });
 
       // Clear fields
       setMessage('');
@@ -25,49 +39,50 @@ const AddLogModal = () => {
   };
 
   return (
-    <div id="add-log-modal" className="modal" style={modalStyle}>
-      <div className="modal-content">
+    <div id='add-log-modal' className='modal' style={modalStyle}>
+      <div className='modal-content'>
         <h4>Enter System Log</h4>
-        <div className="row">
-          <div className="input-field">
+        <div className='row'>
+          <div className='input-field'>
             <input
-              type="text"
-              name="message"
+              type='text'
+              name='message'
               value={message}
               onChange={e => setMessage(e.target.value)}
             />
-            <label htmlFor="message" className="active">
+            <label htmlFor='message' className='active'>
               Log Message
             </label>
           </div>
         </div>
 
-        <div className="row">
-          <div className="input-field">
+        <div className='row'>
+          <div className='input-field'>
             <select
-              name="technician"
-              id=""
+              name='technician'
+              id=''
               value={technician}
-              className="browser-default"
+              className='browser-default'
               onChange={e => setTechnician(e.target.value)}
             >
-              <option value="" disabled>
+              <option value='' disabled>
                 Select Technician
               </option>
-              <option value="Sara Conor">Sarah Conor</option>
-              <option value="Sam Smith">Sam Smith</option>
-              <option value="Jim Jones">Jim Jones</option>
+              <option value='Sara Conor'>Sarah Conor</option>
+              <option value='Sam Smith'>Sam Smith</option>
+              <option value='Jim Jones'>Jim Jones</option>
+              <option value='Jennifer Williams'>Jennifer Williams</option>
             </select>
           </div>
         </div>
 
-        <div className="row">
-          <div className="input-field">
+        <div className='row'>
+          <div className='input-field'>
             <p>
               <label>
                 <input
-                  type="checkbox"
-                  className="filled-in"
+                  type='checkbox'
+                  className='filled-in'
                   checked={attention}
                   value={attention}
                   onChange={e => setAttention(!attention)}
@@ -78,11 +93,11 @@ const AddLogModal = () => {
           </div>
         </div>
       </div>
-      <div className="modal-footer">
+      <div className='modal-footer'>
         <a
-          href="#!"
+          href='#!'
           onClick={onSubmit}
-          className="modal-close waves-effect blue btn"
+          className='modal-close waves-effect blue btn'
         >
           Enter
         </a>
@@ -91,4 +106,8 @@ const AddLogModal = () => {
   );
 };
 
-export default AddLogModal;
+AddLogModal.propTypes = {
+  addLog: PropTypes.func.isRequired
+};
+
+export default connect(null, { addLog })(AddLogModal);
