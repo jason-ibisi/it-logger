@@ -3,7 +3,10 @@ import {
   ADD_LOG,
   SET_LOADING,
   DELETE_LOG,
-  LOGS_ERROR
+  LOGS_ERROR,
+  SET_CURRENT,
+  CLEAR_CURRENT,
+  UPDATE_LOG
 } from './types';
 
 // Get Logs
@@ -53,6 +56,42 @@ export const deleteLog = id => async dispatch => {
   } catch (err) {
     dispatch({ type: LOGS_ERROR, payload: err.response.data });
   }
+};
+
+// Update Log
+export const updateLog = log => async dispatch => {
+  try {
+    setLoading();
+
+    const res = await fetch(`/logs/${log.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(log),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const data = await res.json();
+
+    dispatch({ type: UPDATE_LOG, payload: data });
+  } catch (err) {
+    dispatch({ type: LOGS_ERROR, payload: err.response.data });
+  }
+};
+
+// Set current log
+export const setCurrent = log => {
+  return {
+    type: SET_CURRENT,
+    payload: log
+  };
+};
+
+// Clear current log
+export const clearCurrent = () => {
+  return {
+    type: CLEAR_CURRENT
+  };
 };
 
 // Set loading to 'true'
