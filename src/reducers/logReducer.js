@@ -7,7 +7,8 @@ import {
   UPDATE_LOG,
   SET_CURRENT,
   CLEAR_CURRENT,
-  SEARCH_LOGS
+  SEARCH_LOGS,
+  ADD_LOG_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -58,6 +59,12 @@ export default (state = initialState, action) => {
         logs: state.logs.map(log =>
           log.id === action.payload.id ? action.payload : log
         )
+      };
+    case ADD_LOG_COMMENT:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false
       };
     case SEARCH_LOGS:
       return {

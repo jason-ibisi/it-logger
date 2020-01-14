@@ -2,17 +2,51 @@
   "logs": [
     {
       "id": 1,
-      "message": "Changed hard drive on workstation 005",
+      "message": "Hardrive not working on workstation 005",
       "attention": false,
-      "date": "03-01-2020",
-      "technician": "Sam Smith"
+      "technician": "Sam Smith",
+      "date": "2020-01-15T10:47:42.571Z",
+      "comments": [
+        {
+          "id": 1,
+          "author": "Sam Smith",
+          "comment": "Checked Hard drive on another workstation ",
+          "date": "2020-01-04T18:02:41.627Z"
+        },
+        {
+          "id": 2,
+          "author": "Sam Smith",
+          "comment": "Replaced Hard drive with a 512GB HDD",
+          "date": "2020-01-04T18:02:41.627Z"
+        },
+        {
+          "id": "f8bb2594-4d4f-43f0-bad2-2a171f7a0a87",
+          "comment": "Customer is satisfied.",
+          "author": "Sam Smith",
+          "date": "2020-01-15T10:47:39.721Z"
+        }
+      ]
     },
     {
       "id": 2,
       "message": "Workstation 007 not posting",
       "attention": true,
       "date": "05-01-2020",
-      "technician": "Jim Jones"
+      "technician": "Jim Jones",
+      "comments": [
+        {
+          "id": 1,
+          "author": "Jim Jones",
+          "comment": "Posting issue resolved",
+          "date": "2020-01-05T19:02:41.627Z"
+        },
+        {
+          "id": 2,
+          "author": "Jim Jones",
+          "comment": "Dummy comment",
+          "date": "2020-01-04T18:02:41.627Z"
+        }
+      ]
     },
     {
       "id": 3,

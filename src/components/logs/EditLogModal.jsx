@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TechnicianSelectOptions from '../technicians/TechnicianSelectOptions';
+import Comments from '../comments/Comments';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updateLog } from '../../actions/logActions';
@@ -9,18 +10,20 @@ const EditLogModal = ({ current, updateLog }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [technician, setTechnician] = useState('');
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     if (current) {
       setMessage(current.message);
       setAttention(current.attention);
       setTechnician(current.technician);
+      setComments(current.comments);
     }
   }, [current]);
 
   const modalStyle = {
     width: '75%',
-    height: '75%'
+    height: 'auto'
   };
 
   const onSubmit = () => {
@@ -33,7 +36,8 @@ const EditLogModal = ({ current, updateLog }) => {
         message,
         attention,
         technician,
-        date: new Date()
+        date: new Date(),
+        comments
       };
 
       // Update Log
@@ -44,13 +48,14 @@ const EditLogModal = ({ current, updateLog }) => {
       setMessage('');
       setTechnician('');
       setAttention(false);
+      setComments([]);
     }
   };
 
   return (
     <div id='edit-log-modal' className='modal' style={modalStyle}>
       <div className='modal-content'>
-        <h4>Enter System Log</h4>
+        <h4>Edit System Log</h4>
         <div className='row'>
           <div className='input-field'>
             <input
@@ -58,8 +63,13 @@ const EditLogModal = ({ current, updateLog }) => {
               name='message'
               value={message}
               onChange={e => setMessage(e.target.value)}
+              disabled
             />
           </div>
+        </div>
+
+        <div className='row'>
+          <Comments comments={comments} />
         </div>
 
         <div className='row'>
