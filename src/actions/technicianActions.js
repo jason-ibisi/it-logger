@@ -21,7 +21,7 @@ export const getTechnicians = () => async dispatch => {
 };
 
 // Add a Technician
-export const addLog = technician => async dispatch => {
+export const addTechnician = technician => async dispatch => {
   try {
     setLoading();
 
